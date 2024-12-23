@@ -25,34 +25,35 @@ view_cats = KeyboardButton('Список категорий')
 view_dishes = KeyboardButton('Добавить товар')
 min_price = KeyboardButton('Минимальный заказ')
 number = KeyboardButton('Отправить свой номер', request_contact=True)
-
+# Главная клавиатура
 main = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True,row_width=1).add(cart_cat,sale,menu,help)
-
+# Клавиатура для оформления заказа
 order_btn = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-order_btn.row(order, back_to_cat, cl_cart)
-
+order_btn.row(order, back_to_cat, cl_cart) # Добавляем кнопки в клавиатуру оформления заказа
+# Клавиатура с одной кнопкой "Назад"
 main_btn = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 main_btn.row(back)
+# Клавиатура с одной кнопкой "<< Вернуться"
 back_cat = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 back_cat.row(back_to_cat)
-
+# Административная клавиатура
 admin_buttons = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 admin_buttons.add(view_cats, min_price, del_dish_b, message, discount,sale)
-
+# Клавиатура для добавления категории
 admin_cats_buttons = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 admin_cats_buttons.row(ad_category, back)
-
+# Клавиатура для отображения списка категорий
 cat_list = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-
+# Клавиатура с одной кнопкой "ОК"
 ready_button = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 ready_button.row(ok)
-
+# Клавиатура для администрирования товара
 admin_dishes_buttons = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 admin_dishes_buttons.row(back)
+# Клавиатура для пользователей при выборе товара
 user_dishes_buttons = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 user_dishes_buttons.row(back_to_cat)
-
-
+# Функция для динамического создания клавиатуры с категориями
 async def create_buttons_types(lst, user_role):
     cats = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     if user_role == 'admin':
@@ -73,7 +74,7 @@ async def create_buttons_types(lst, user_role):
                 cat_list.row(cart_cat)
             return cat_list
 
-
+# Функция для динамического создания клавиатуры с товаром
 async def create_buttons_dishes(lst):
     admin_dishes_but = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     for name in lst:
@@ -84,7 +85,7 @@ async def create_buttons_dishes(lst):
         admin_dishes_but.row(back, view_dishes)
         return admin_dishes_but
 
-
+# Функция для создания клавиатуры с товаром для обычных пользователей
 async def user_dishes_buttons(lst):
     user_dishes_but = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     for name in lst:

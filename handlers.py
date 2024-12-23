@@ -16,20 +16,18 @@ info_about_new_order = {}
 about_order = {}
 new_message = []
 
-
+# Класс состояний для ввода расходов
 class expenses(StatesGroup):
-    count = State()
-    title = State()
-
-
+    count = State() # Состояние для ввода суммы расходов
+    title = State() # Состояние для ввода названия расхода
+# Класс состояний для получения информации о заказе
 class get_info_about_order(StatesGroup):
     person_name = State()
     person_number = State()
     person_adres = State()
     person_payment = State()
     order_comment = State()
-
-
+# Класс состояний для добавления нового товара
 class add_dish(StatesGroup):
     title_dish = State()
     category_dish = State()
@@ -37,28 +35,22 @@ class add_dish(StatesGroup):
     structure_dish = State()
     weight_dish = State()
     photo_dish = State()
-
-
+# Класс состояний для редактирования акции
 class Sale(StatesGroup):
     edit = State()
-
-
+# Класс состояний для добавления новой категории
 class add_cats(StatesGroup):
     title = State()
-
-
+# Класс состояний для создания сообщения для рассылки
 class create_message(StatesGroup):
     message = State()
     photo = State()
-
-
+# Класс состояний для установки скидки
 class discount_st(StatesGroup):
     coast = State()
-
-
+# Класс состояний для установки минимальной стоимости заказа
 class min_order(StatesGroup):
     price = State()
-
 
 @dp.message_handler(commands=['start'])  # Сообщение при старте бота
 async def start_message(message: types.message):
@@ -70,7 +62,7 @@ async def start_message(message: types.message):
         if message.from_id == int(ids):  # Сообщение для админа
             await message.answer(text='Вы авторизованы как администратор.', reply_markup=admin_buttons)
             break
-    else:
+    else: 
         await message.answer(text=f'Приветствуем вас в продуктовом магазине Якорек!\n'
                                   f'С помощью данного бота вы сможете оформить заказ на доставку!\n'
                                   f'-Доставка работает ТОЛЬКО в черте города.\n'
@@ -129,7 +121,7 @@ async def worked_with_buttons(message: types.Message, state: FSMContext):
             if message.from_id == int(ids):  # Сообщение для админа
                 await message.answer(text='Вы авторизованы как администратор.', reply_markup=admin_buttons)
                 break
-        else:
+        else: 
             await message.answer(text=f'Приветствуем вас в продуктовом магазине Якорек!"\n'
                                       f'С помощью данного бота вы сможете оформить заказ на доставку!\n'
                                       f'-Доставка работает ТОЛЬКО в черте города.\n'
